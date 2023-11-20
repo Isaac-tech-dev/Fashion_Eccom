@@ -14,15 +14,25 @@ import OfferCard from "../components/OfferCard";
 import NewArrivalsCard from "../components/NewArrivalsCard";
 import AuthModal from "../components/AuthModal";
 import AuthContext from "../features/context/authContext";
+import { async } from "@firebase/util";
+import { getProducts } from "../features/firebase/product";
+import ProductContext from "../features/context/productContext";
 
 const HomeScreen = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const { isLoggedIn, currentUser } = useContext(AuthContext);
+  const { products, setProducts } = useContext(ProductContext);
+
+  const fetchAllProducts = async () => {
+    const result = await getProducts();
+    setProducts(result);
+  };
 
   useEffect(() => {
     navigation.setOptions({
       headerShown: false,
     });
+    fetchAllProducts();
   }, []);
   console.log(isLoggedIn);
   return (
@@ -70,7 +80,11 @@ const HomeScreen = ({ navigation }) => {
         </View>
       </View>
 
-      <ScrollView  vertical={true} showsVerticalScrollIndicator={false} className="mb-4">
+      <ScrollView
+        vertical={true}
+        showsVerticalScrollIndicator={false}
+        className="mb-4"
+      >
         {/* Offer */}
         <View className="mt-6 p-5">
           <OfferCard />
@@ -80,7 +94,9 @@ const HomeScreen = ({ navigation }) => {
         <View className="mt-4">
           <View className="flex-row justify-between items-center px-5">
             <Text className="font-extrabold text-lg">New Arrivals</Text>
-            <Pressable>
+            <Pressable
+              onPress={() => navigation.navigate("Product-List-Screen")}
+            >
               <Text className="text-xs text-gray-500">View All</Text>
             </Pressable>
           </View>
@@ -89,18 +105,17 @@ const HomeScreen = ({ navigation }) => {
             horizontal={true}
             showsHorizontalScrollIndicator={false}
           >
-            <Pressable>
-              <NewArrivalsCard />
-            </Pressable>
-            <Pressable>
-              <NewArrivalsCard />
-            </Pressable>
-            <Pressable>
-              <NewArrivalsCard />
-            </Pressable>
-            <Pressable>
-              <NewArrivalsCard />
-            </Pressable>
+            {products?.map((product) => (
+              <Pressable key={product.id}>
+                <NewArrivalsCard
+                  title={product.title}
+                  image={product.image}
+                  description={product.description}
+                  price={product.price}
+                  brand={product.brand}
+                />
+              </Pressable>
+            ))}
           </ScrollView>
         </View>
       </ScrollView>
