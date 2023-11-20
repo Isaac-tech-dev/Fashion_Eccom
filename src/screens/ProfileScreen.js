@@ -1,4 +1,4 @@
-import { Text, View, Image,Pressable,ToastAndroid } from "react-native";
+import { Text, View, Image,Pressable,ToastAndroid, Alert } from "react-native";
 import React, { useContext } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import User from "../../assets/user.png";
@@ -12,7 +12,8 @@ const ProfileScreen = () => {
   const handleLogout = async () => {
     const res = await logout()
     if(res.success===true){
-      ToastAndroid.show("Logged Out Successfully",ToastAndroid.BOTTOM)
+      //ToastAndroid.show("Logged Out Successfully",ToastAndroid.BOTTOM)
+      Alert.alert("Logged Out Successfully")
       setIsLoggedIn(false);
       setCurrentUser(null)
     }

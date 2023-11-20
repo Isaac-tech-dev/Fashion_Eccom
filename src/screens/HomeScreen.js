@@ -106,7 +106,14 @@ const HomeScreen = ({ navigation }) => {
             showsHorizontalScrollIndicator={false}
           >
             {products?.map((product) => (
-              <Pressable key={product.id}>
+              <Pressable
+                key={product.id}
+                onPress={() =>
+                  navigation.navigate("Detail-Screen", {
+                    productId: product.id,
+                  })
+                }
+              >
                 <NewArrivalsCard
                   title={product.title}
                   image={product.image}

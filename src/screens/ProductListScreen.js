@@ -46,7 +46,7 @@ const ProductListScreen = ({ navigation }) => {
           <Pressable
             key={product.id}
             onPress={() =>
-              navigation.navigate("detailscreen", {
+              navigation.navigate("Detail-Screen", {
                 productId: product?.id,
               })
             }

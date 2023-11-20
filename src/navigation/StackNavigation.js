@@ -12,7 +12,13 @@ const Stack = createStackNavigator();
 
 const MainStackNavigator = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      //initialRouteName="Detail-Screen"
+      screenOptions={{
+        headerStyle: { backgroundColor: "#91cf48" },
+        headerShown: false,
+      }}
+    >
       <Stack.Screen name="Home-Screen" component={HomeScreen} />
       <Stack.Screen name="Detail-Screen" component={DetailScreen} />
       <Stack.Screen name="Product-List-Screen" component={ProductList} />

@@ -16,4 +16,14 @@ export const getProducts = async () => {
 };
 
 
-//export const getProductsId
+export const getProductById = async (productId)=>{
+  try {
+      console.log("prod",productId)
+      const productRef = doc(db,"products",productId)
+      const productSnapshot = await getDoc(productRef)
+      const product = {id: productSnapshot.id,...productSnapshot.data()}
+      return product;
+  } catch (error) {
+      console.error(error)
+  }
+}

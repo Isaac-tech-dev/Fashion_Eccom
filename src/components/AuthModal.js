@@ -11,6 +11,7 @@ import {
   Pressable,
   ActivityIndicator,
   ToastAndroid,
+  Alert,
 } from "react-native";
 import {
   loginWithEmailAndPassword,
@@ -33,6 +34,7 @@ const AuthModal = ({ modalVisible, setModalVisible }) => {
     const res = await registerWithEmailAndPassword(name, email, password);
     if (res.success === true) {
       //ToastAndroid.show("Registered Successfully", ToastAndroid.BOTTOM);
+      Alert.alert("Registered Successfully");
       //Toast.showSuccess("Registered Successfully");
       //Toast.showError("Error");
       setType("login");
@@ -44,6 +46,7 @@ const AuthModal = ({ modalVisible, setModalVisible }) => {
     const res = await loginWithEmailAndPassword(email, password);
     if (res.success === true) {
       //ToastAndroid.show("Login Successfully", ToastAndroid.BOTTOM);
+      Alert.alert("Login Successfully");
       //Toast.showSuccess("Login Successfully");
       //Toast.showError("Error");
       //console.log("user:", res.user);
